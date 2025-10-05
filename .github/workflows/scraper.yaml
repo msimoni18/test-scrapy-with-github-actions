@@ -31,6 +31,9 @@ jobs:
           timestamp=$(date -u +"%Y-%m-%d_%H-%M-%S")
           cd tutorial
           scrapy crawl quotes -O ../data/quotes_${timestamp}.json
+          cd ..
+          # Reformat the JSON file with indentation
+          python -m json.tool data/quotes_${timestamp}.json > data/tmp.json && mv data/tmp.json data/quotes_${timestamp}.json
 
       - name: Commit and push data
         run: |
