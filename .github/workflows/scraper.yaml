@@ -62,4 +62,4 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages # explicitly deploy to gh-pages
           # Optional: commit message for Pages branch
-          commit_message: 'Update dashboard at $(date -u +"%Y-%m-%d %H:%M:%S UTC")'
+          commit_message: Update dashboard at $(date -u +"%Y-%m-%d %H:%M:%S UTC")
