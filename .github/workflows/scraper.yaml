@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  scrape:
+  scrape-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,3 +42,22 @@ jobs:
           git add data/
           git commit -m "Update scraped data at $(date -u +"%Y-%m-%d %H:%M:%S") [skip ci]" || echo "No changes to commit"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+      - name: Generate dynamic dashboard
+        run: |
+          mkdir -p public
+          echo "<html><body><h1>Recent Scraper Runs</h1><table border=1>" > public/index.html
+          gh api repos/${{ github.repository }}/actions/workflows/scraper.yaml/runs \
+            --jq '.workflow_runs[:5][] | "<tr><td>\(.run_number)</td><td>\(.conclusion)</td><td>\(.updated_at)</td></tr>"' \
+            >> public/index.html
+          echo "</table></body></html>" >> public/index.html
+
+      - name: Deploy to GitHub Pages
+        if: ${{ always() }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages # explicitly deploy to gh-pages
+          # Optional: commit message for Pages branch
+          commit_message: 'Update dashboard at $(date -u +"%Y-%m-%d %H:%M:%S UTC")'

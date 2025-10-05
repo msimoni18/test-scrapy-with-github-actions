@@ -3,7 +3,7 @@
 `.github/workflows/scraper.yaml` is set up to run every 5 minutes,
 and should added a new quotes file with a timestamp.
 
-## Logs
+## Latest Logs
 
 ![Scraper Status](https://github.com/msimoni18/test-scrapy-with-github-actions/actions/workflows/scraper.yaml/badge.svg)
 
@@ -14,3 +14,7 @@ Clickable:
 Clickable with branch:
 
 [![Scraper Status](https://github.com/msimoni18/test-scrapy-with-github-actions/actions/workflows/scraper.yaml/badge.svg?branch=main)](https://github.com/msimoni18/test-scrapy-with-github-actions/actions/workflows/scraper.yaml)
+
+## Log History
+
+Checkout GitHub pages for the results of the last 10 workflows.
