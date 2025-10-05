@@ -44,6 +44,8 @@ jobs:
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
       - name: Generate dynamic dashboard
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # needed to run gh api command
         run: |
           mkdir -p public
           echo "<html><body><h1>Recent Scraper Runs</h1><table border=1>" > public/index.html
